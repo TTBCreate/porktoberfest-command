@@ -1,0 +1,43 @@
+name: Dashboard access
+
+# Use this once to add the first admin(s). After that, admins manage people on the Team access page.
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        type: choice
+        default: add-member
+        options: [add-member, remove-member, list-members]
+      email:
+        description: 'Google email address'
+        required: false
+      role:
+        type: choice
+        default: admin
+        options: [admin, editor, viewer]
+      alerts:
+        description: 'Send this person alert emails'
+        type: boolean
+        default: true
+
+jobs:
+  access:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: monitor
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: monitor/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - run: node admin.js "$ACTION" "$EMAIL" "$ROLE" "$ALERTS"
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          ACTION: ${{ inputs.action }}
+          EMAIL: ${{ inputs.email }}
+          ROLE: ${{ inputs.role }}
+          ALERTS: ${{ inputs.alerts && 'alerts' || '' }}
