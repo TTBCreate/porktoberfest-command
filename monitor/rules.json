@@ -1,0 +1,19 @@
+{
+  "_note": "Edit these lists to tune alerts. Matching is case-insensitive and whole-word-ish. Highest tier wins.",
+  "critical": [
+    "deadline", "due", "registration closes", "registration deadline", "last day", "required", "must", "mandatory",
+    "social media competition", "social media contest", "judging", "judged", "criteria", "rules", "tent map",
+    "site map", "site assignment", "plot assignment", "check-in", "check in", "load-in", "load in", "move-in",
+    "fundraising minimum", "minimum", "cancel", "cancelled", "canceled", "postponed", "weather", "team meeting",
+    "captains meeting", "orientation"
+  ],
+  "opportunity": [
+    "lineup", "headliner", "band", "menu", "sponsor", "partner", "giveaway", "contest", "challenge", "tag us",
+    "tag @hogsforthecause", "countdown", "early bird", "tickets", "trail of barbecue", "milestone", "raised",
+    "families", "hogs houses", "announce", "announcing", "reveal", "merch", "volunteer"
+  ],
+  "ignoreLinePatterns": [
+    "©", "copyright", "all rights reserved", "cookie", "privacy policy", "skip to content", "^\\d+$", "^[\\W_]+$"
+  ],
+  "dateWindowDays": 21
+}

@@ -1,0 +1,48 @@
+{
+  "timezone": "America/Chicago",
+  "quietHours": {
+    "start": 21,
+    "end": 7
+  },
+  "failAlertAfter": 3,
+  "dashboardUrl": "https://YOUR-GITHUB-USER.github.io/porktoberfest-command-center/",
+  "ntfyServer": "https://ntfy.sh",
+  "claudeModel": "claude-haiku-4-5",
+  "instagramApiVersion": "v21.0",
+  "sources": [
+    {
+      "id": "hog-blog",
+      "type": "wp-posts",
+      "name": "Hog Blog",
+      "url": "https://hogsforthecause.org/wp-json/wp/v2/posts?per_page=10&_fields=id,date,link,title,excerpt"
+    },
+    {
+      "id": "fest-home",
+      "type": "page",
+      "name": "hogsfest.org home page",
+      "url": "https://hogsfest.org/"
+    },
+    {
+      "id": "fest-registration",
+      "type": "page",
+      "name": "Team Registration 2027",
+      "url": "https://hogsfest.org/team-registration-2027/",
+      "alwaysCritical": true
+    },
+    {
+      "id": "fest-faqs",
+      "type": "page",
+      "name": "hogsfest.org FAQs",
+      "url": "https://hogsfest.org/faqs/",
+      "alwaysCritical": true
+    },
+    {
+      "id": "ig-hogs",
+      "type": "instagram",
+      "name": "@hogsforthecause",
+      "username": "hogsforthecause"
+    }
+  ],
+  "trendsModel": "claude-sonnet-4-5",
+  "trendIdeasPerWeek": 3
+}

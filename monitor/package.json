@@ -1,0 +1,16 @@
+{
+  "name": "porktoberfest-monitor",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Scheduled checks of official Hogs for the Cause sources, with ntfy push and Gmail alerts.",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "start": "node index.js auto",
+    "test": "node --test test.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.7.0",
+    "nodemailer": "^6.9.16"
+  }
+}

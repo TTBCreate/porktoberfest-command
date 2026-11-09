@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Porktoberfest Command Center</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#14284B">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+<style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)} body{margin:0} [hidden]{display:none!important}</style>
+</head>
+<body>
+<div id="gate" class="gate"><div class="box"><div class="lozenge"></div><h1>Porktoberfest</h1><p id="gateMsg" style="margin:0;color:var(--muted)">Loading…</p><div id="gateActions"></div></div></div>
+
+<div id="shell" hidden>
+  <div class="mobilebar"><b>Porktoberfest</b><select id="mnav" aria-label="Section"></select></div>
+  <div class="app">
+    <aside class="rail">
+      <div class="brand"><div class="lozenge"></div><h1>Porktoberfest</h1><p>Meat. Mustaches. Mayhem.</p></div>
+      <nav id="nav" aria-label="Sections"></nav>
+      <div class="foot"><div class="who" id="who"></div><div style="margin-top:6px">Command Center · 2027 season</div></div>
+    </aside>
+    <main class="main" id="main"></main>
+  </div>
+</div>
+<div id="drawerHost"></div>
+<div id="toastHost"></div>
+<script type="module" src="app.js"></script>
+</body>
+</html>

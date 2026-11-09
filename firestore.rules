@@ -1,0 +1,44 @@
+rules_version = '2';
+// Paste into Firebase console > Firestore Database > Rules, then Publish.
+// Roles live in members/{lowercase email}:
+//   admin = edits everything, manages access
+//   editor ("Full access") = sees everything, can get alert emails, edits fundraising details only
+//   viewer ("Dashboard only") = sees everything, no edits, no alerts
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function email() { return request.auth.token.email.lower(); }
+    function signedIn() { return request.auth != null && request.auth.token.email_verified == true; }
+    function memberDoc() { return /databases/$(database)/documents/members/$(email()); }
+    function isMember() { return signedIn() && exists(memberDoc()); }
+    function role() { return get(memberDoc()).data.role; }
+    function isEditor() { return isMember() && role() in ['admin', 'editor']; }
+    function isAdmin() { return isMember() && role() == 'admin'; }
+
+    // Access list: everyone can read their own entry; only admins see or change the list.
+    match /members/{memberEmail} {
+      allow read: if signedIn() && (memberEmail == email() || isAdmin());
+      allow create, update: if isAdmin()
+        && request.resource.data.role in ['admin', 'editor', 'viewer']
+        && memberEmail == memberEmail.lower()
+        && (memberEmail != email() || request.resource.data.role == 'admin');
+      // Admins can't remove or demote themselves by accident.
+      allow delete: if isAdmin() && memberEmail != email();
+    }
+
+    // Planning content: every member reads; only admins edit.
+    match /alerts/{id}   { allow read: if isMember(); allow write: if isAdmin(); }
+    match /posts/{id}    { allow read: if isMember(); allow write: if isAdmin(); }
+    match /ideas/{id}    { allow read: if isMember(); allow write: if isAdmin(); }
+    // Settings: admins edit everything; Full access may change fundraising fields only.
+    match /settings/{id} {
+      allow read: if isMember();
+      allow write: if isAdmin();
+      allow update: if isEditor() && request.resource.data.diff(resource.data).affectedKeys()
+        .hasOnly(['goal', 'verifiedTotal', 'totalAsOf', 'donationUrl', 'fundUpdatedAt', 'fundUpdatedBy']);
+    }
+
+    // Written only by the monitor (service account bypasses these rules).
+    match /runs/{id}      { allow read: if isMember(); allow write: if false; }
+    match /snapshots/{id} { allow read, write: if false; }
+  }
+}
