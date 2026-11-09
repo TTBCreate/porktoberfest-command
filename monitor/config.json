@@ -5,7 +5,7 @@
     "end": 7
   },
   "failAlertAfter": 3,
-  "dashboardUrl": "https://YOUR-GITHUB-USER.github.io/porktoberfest-command-center/",
+  "dashboardUrl": "https://YOUR-GITHUB-USER.github.io/porktoberfest-command/",
   "ntfyServer": "https://ntfy.sh",
   "claudeModel": "claude-haiku-4-5",
   "instagramApiVersion": "v21.0",
